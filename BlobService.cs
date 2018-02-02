@@ -89,6 +89,12 @@ namespace Azure.StorageServices {
       request.GetAssetBundle(callback);
     }
 
+    public IEnumerator GetAssetBundle(Action<IRestResponse<AssetBundle>> callback, string resourcePath, Hash128 hash, uint crc = 0U) {
+      StorageRequest request = Auth.GetAuthorizedStorageRequestAssetBundle(client, resourcePath, hash, crc);
+      yield return request.Send();
+      request.GetAssetBundle(callback);
+    }
+
     public IEnumerator GetBlob(Action<IRestResponse<byte[]>> callback, string resourcePath = "") {
       StorageRequest request = Auth.GetAuthorizedStorageRequest(client, resourcePath);
       yield return request.Send();
