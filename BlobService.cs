@@ -47,8 +47,8 @@ namespace Azure.StorageServices {
 
     #region Download blobs
 
-    public IEnumerator GetTextBlob(Action<RestResponse> callback, string resourcePath = "") {
-      StorageRequest request = Auth.GetAuthorizedStorageRequest(client, resourcePath);
+    public IEnumerator GetTextBlob(Action<RestResponse> callback, string resourcePath = "", Dictionary<string, string> queryParams = null, Dictionary<string, string> headers = null, int contentLength = 0) {
+      StorageRequest request = Auth.GetAuthorizedStorageRequest(client, resourcePath, queryParams, headers, contentLength);
       yield return request.Send();
       request.GetText(callback);
     }
